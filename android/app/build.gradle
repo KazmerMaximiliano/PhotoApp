@@ -1,5 +1,4 @@
 apply plugin: "com.android.application"
-apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 /**
@@ -77,10 +76,15 @@ android {
     namespace "com.photoapp"
     defaultConfig {
         applicationId "com.photoapp"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion 23
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
+         defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 34
+        missingDimensionStrategy 'react-native-camera', 'general'  
+    }
     }
     signingConfigs {
         debug {
@@ -107,8 +111,15 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation project(':react-native-camera')
+     implementation "com.facebook.react:react-native:+"  
+         implementation 'androidx.work:work-runtime:2.8.0'
+    debugImplementation 'com.facebook.flipper:flipper:0.125.0'
+    debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.125.0'
+    debugImplementation 'com.facebook.flipper:flipper-fresco-plugin:0.125.0'
+    debugImplementation 'com.squareup.okhttp3:okhttp:4.9.3'
 
-    if (hermesEnabled.toBoolean()) {
+     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
